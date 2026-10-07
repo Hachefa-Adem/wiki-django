@@ -39,6 +39,7 @@ SECRET_KEY = '%710m*zic)#0u((qugw#1@e^ty!c)9j04956v@ly(_86n$rg)h'
 DEBUG = True
 ALLOWED_HOSTS = [
     "wiki-django-sigma.vercel.app",
+    ".vercel.app",
 ]
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 if os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
