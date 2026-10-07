@@ -10,18 +10,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import os
+
 import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+from django.core.exceptions import ImproperlyConfigured
 
-cloudinary.config(
-    cloud_name="txfvvz8z",
-    api_key="189622113632234",
-    api_secret="p547_MZ5fQ9jqwJqmsRgoRrEdZs",
-    secure=True
-)
-
-CLOUDINARY_URL="cloudinary://189622113632234:p547_MZ5fQ9jqwJqmsRgoRrEdZs@txfvvz8z"
+if os.environ.get("CLOUDINARY_URL"):
+    cloudinary.config()
+else:
+    cloudinary_credentials = {
+        "cloud_name": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+        "api_key": os.environ.get("CLOUDINARY_API_KEY"),
+        "api_secret": os.environ.get("CLOUDINARY_API_SECRET"),
+    }
+    if any(cloudinary_credentials.values()) and not all(cloudinary_credentials.values()):
+        raise ImproperlyConfigured(
+            "Set CLOUDINARY_URL or all of CLOUDINARY_CLOUD_NAME, "
+            "CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET."
+        )
+    if all(cloudinary_credentials.values()):
+        cloudinary.config(**cloudinary_credentials, secure=True)
 
 
 

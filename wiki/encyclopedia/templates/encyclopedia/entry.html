@@ -11,7 +11,7 @@
         {% endif %}
 
         {% if entry.image %}
-            <img class="article-image" src="{{ entry.image.url }}" alt="{{ entry.title }}">
+            <img class="article-image" src="{{ entry.image.url }}" alt="{{ entry.title }}" loading="lazy">
         {% endif %}
 
         <div class="markdown-content{% if entry %} has-entry-title{% endif %}">
