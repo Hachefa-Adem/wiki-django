@@ -1,0 +1,39 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+new page
+{% endblock %}
+
+{% block body %}
+    <section class="editor-page" aria-labelledby="editor-title">
+        <div class="editor-heading">
+            <span class="section-kicker" aria-hidden="true">✿</span>
+            <h1 class="page-title" id="editor-title">Create New Page</h1>
+        </div>
+
+        <form class="editor-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if error %}
+                <p class="form-error" role="alert">{{ error }}</p>
+            {% endif %}
+
+            <div class="field-group">
+                <label for="entry-title">Title</label>
+                <input id="entry-title" type="text" name="title" placeholder="Give this page a name">
+            </div>
+
+            <div class="field-group">
+                <label for="entry-content">Description and content</label>
+                <textarea id="entry-content" name="content">#retype your title here and keep the # at the start</textarea>
+            </div>
+
+            <div class="field-group image-field">
+                <label for="entry-image">Cover image</label>
+                <input id="entry-image" type="file" name="image" accept="image/*">
+            </div>
+
+            <button class="save-button" type="submit">Save page <span aria-hidden="true">↗</span></button>
+        </form>
+    </section>
+{% endblock %}

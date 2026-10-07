@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ entry.title }}
+{% endblock %}
+
+{% block body %}
+    <article class="article">
+        {% if entry %}
+            <h1 class="article-title">{{ entry.title }}</h1>
+        {% endif %}
+
+        {% if entry.image %}
+            <img class="article-image" src="{{ entry.image.url }}" alt="{{ entry.title }}">
+        {% endif %}
+
+        <div class="markdown-content{% if entry %} has-entry-title{% endif %}">
+            {{ content|safe }}
+        </div>
+    </article>
+{% endblock %}

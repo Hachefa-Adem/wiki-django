@@ -1,0 +1,32 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <section class="catalog" aria-labelledby="page-title">
+        <div class="catalog-heading">
+            <span class="section-kicker" aria-hidden="true">✿</span>
+            <h1 class="page-title" id="page-title">All Pages</h1>
+        </div>
+
+        <div class="entries-grid">
+            {% for entry in entries %}
+                {% if entry.content %}
+                    <a class="entry-card" href="{% url 'entry' entry.title %}">
+                        <span class="entry-card-title">{{ entry.title }}</span>
+                        <span class="entry-card-flower" aria-hidden="true">✿</span>
+                    </a>
+                {% else %}
+                    <a class="entry-card" href="{% url 'entry' entry %}">
+                        <span class="entry-card-title">{{ entry }}</span>
+                        <span class="entry-card-flower" aria-hidden="true">✿</span>
+                    </a>
+                {% endif %}
+            {% empty %}
+                <p class="empty-state">No pages here yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

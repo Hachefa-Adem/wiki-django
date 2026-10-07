@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <header class="header">
+
+            <a class="brand" href="{% url 'index' %}" aria-label="Wiki Encyclopedia home">
+                <span class="brand-main">Wiki</span>
+                <span class="brand-slash">/</span>
+                <span class="brand-sub">Encyclopedia</span>
+                <span class="brand-flower" aria-hidden="true">✿</span>
+            </a>
+
+            <form class="search-form" action="{% url 'search' %}" method="get" role="search">
+                <div class="search-wrapper">
+                    <input
+                        class="search"
+                        type="text"
+                        name="q"
+                        placeholder="Search the encyclopedia..."
+                        aria-label="Search the encyclopedia"
+                    >
+                    <button class="search-submit" type="submit" aria-label="Search"></button>
+                </div>
+            </form>
+
+            <nav class="navigation">
+                <a href="{% url 'index' %}" class="nav-link{% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'search' %} active{% endif %}"{% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'search' %} aria-current="page"{% endif %}>
+                    Home
+                </a>
+
+                <a href="{% url 'newpage' %}" class="nav-link{% if request.resolver_match.url_name == 'newpage' %} active{% endif %}"{% if request.resolver_match.url_name == 'newpage' %} aria-current="page"{% endif %}>
+                    Create New Page
+                </a>
+            </nav>
+
+        </header>
+
+        <main class="main">
+            {% block body %}
+            {% endblock %}
+        </main>
+
+    </div>
+
+</body>
+</html>
